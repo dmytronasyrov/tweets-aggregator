@@ -16,6 +16,7 @@ import io.vertx.core.json.JsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -25,29 +26,28 @@ public class TweetsConsumerVerticle extends AbstractVerticle {
 
   // Constants
 
-  private static final int sQueueSize = 1000;
-  private static final int sQueueTimeout = 5000;
+  private static final int sQueueSize = 100;
   private static final int sTwitterShutdownTime = 5000;
   private static final int sVerticleShutdownDelay = 1000;
   private static final int sPollDelay = 3000;
   private static final String TWITTER_CLIENT = "TWEETS_CONSUMER";
+  private static final String ADDRESS_TWEETS_RAW = "tweets.raw";
+  private static final String TWEETS_KEY = "tweets";
 
   // Variables
 
-  private final Logger mLogger;
   private final BlockingQueue<String> mTweets;
   private Config mConfig;
   private Client mTwitter;
   private long mPollTimerId;
 
-  // Overrides
-
+  // Constructor
 
   public TweetsConsumerVerticle() {
-    mLogger = LoggerFactory.getLogger(TweetsConsumerVerticle.class.getName());
-
     mTweets = new LinkedBlockingDeque<>(sQueueSize);
   }
+
+  // Overrides
 
   @Override
   public void start(Future<Void> startFuture) {
@@ -115,14 +115,12 @@ public class TweetsConsumerVerticle extends AbstractVerticle {
     return vertx.setPeriodic(sPollDelay, timerId -> {
       if (mTwitter.isDone()) return;
 
-      try {
-        String msg = mTweets.poll(sQueueTimeout, TimeUnit.MILLISECONDS);
-        mLogger.info("MSG: " + msg);
-      } catch (InterruptedException e) {
-        mLogger.error(e.getMessage());
+      List<String> tweets = new ArrayList<>();
+      mTweets.drainTo(tweets);
 
-        mTwitter.reconnect();
-      }
+      JsonObject payload = new JsonObject()
+        .put(TWEETS_KEY, tweets);
+      vertx.eventBus().send(ADDRESS_TWEETS_RAW, payload);
     });
   }
 }

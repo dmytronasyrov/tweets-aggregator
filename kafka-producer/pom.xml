@@ -12,12 +12,12 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>tweets-consumer</artifactId>
+    <artifactId>kafka-producer</artifactId>
 
     <!-- Properties -->
 
     <properties>
-        <main.verticle>com.pharosproduction.tweets_aggregator.tweets_consumer.MainVerticle</main.verticle>
+        <main.verticle>com.pharosproduction.tweets_aggregator.kafka_producer.MainVerticle</main.verticle>
     </properties>
 
     <!-- Build -->
@@ -45,6 +45,13 @@
 
     <!-- Dependencies -->
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>com.pharosproduction</groupId>
@@ -53,11 +60,10 @@
             <scope>compile</scope>
         </dependency>
 
-        <!--twitter dependency-->
         <dependency>
-            <groupId>com.twitter</groupId>
-            <artifactId>hbc-core</artifactId>
-            <version>2.2.0</version>
+            <groupId>com.github.vert-x3</groupId>
+            <artifactId>vertx-kafka-client</artifactId>
+            <version>5caee7e589</version>
         </dependency>
     </dependencies>
 </project>

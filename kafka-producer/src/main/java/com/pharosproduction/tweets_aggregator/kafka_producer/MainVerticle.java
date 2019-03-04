@@ -1,4 +1,4 @@
-package com.pharosproduction.tweets_aggregator.tweets_consumer;
+package com.pharosproduction.tweets_aggregator.kafka_producer;
 
 import com.pharosproduction.tweets_aggregator.common.MicroserviceVerticle;
 import io.vertx.core.DeploymentOptions;
@@ -11,13 +11,13 @@ public class MainVerticle extends MicroserviceVerticle {
   public void start() throws Exception {
     super.start();
 
-    deployTweetsConsumer();
+    deployTweetsProducer();
   }
 
   // Private
 
-  private void deployTweetsConsumer() {
-    String className = TweetsConsumerVerticle.class.getName();
+  private void deployTweetsProducer() {
+    String className = TweetsProducerVerticle.class.getName();
     DeploymentOptions options = new DeploymentOptions()
       .setConfig(mModuleConfig);
 

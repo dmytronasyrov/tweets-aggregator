@@ -18,6 +18,7 @@ public class MicroserviceVerticle extends AbstractVerticle {
 
   // Variables
 
+  protected JsonObject mModuleConfig;
   protected ServiceDiscovery mDiscovery;
   private Set<Record> mRegisteredRecords = new ConcurrentHashSet<>();
 
@@ -26,6 +27,17 @@ public class MicroserviceVerticle extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     super.start();
+
+    mModuleConfig = config();
+
+    createServiceDiscovery();
+  }
+
+  @Override
+  public void start(Future<Void> startFuture) throws Exception {
+    super.start(startFuture);
+
+    mModuleConfig = config();
 
     createServiceDiscovery();
   }
