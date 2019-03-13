@@ -1,0 +1,12 @@
+schema {
+    query: Query
+}
+
+type Query {
+    tweet: Tweet
+}
+
+type Tweet {
+    id: ID!
+    details: String!
+}

@@ -15,6 +15,7 @@
         <module>tweets-consumer</module>
         <module>common</module>
         <module>kafka-producer</module>
+        <module>api-dashboard</module>
     </modules>
 
     <!-- Properties -->
