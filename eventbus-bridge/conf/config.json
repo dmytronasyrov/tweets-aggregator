@@ -1,0 +1,9 @@
+{
+  "bridge": {
+    "port": 6000
+  },
+  "channel": {
+    "prefix": "test",
+    "echo": "echo"
+  }
+}

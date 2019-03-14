@@ -16,6 +16,7 @@
         <module>common</module>
         <module>kafka-producer</module>
         <module>api-dashboard</module>
+        <module>eventbus-bridge</module>
     </modules>
 
     <!-- Properties -->
