@@ -43,7 +43,10 @@ public class BridgeVerticle extends AbstractVerticle {
       }
 
       testConsumer();
-//      testPeriodicConsumer();
+      testConsumer();
+      testConsumer();
+
+      testPeriodicConsumer();
     });
     createBridge(mConfig.getBridgePort(), future);
   }
@@ -84,11 +87,11 @@ public class BridgeVerticle extends AbstractVerticle {
   }
 
   private void testPeriodicConsumer() {
-    //      vertx.setPeriodic(100, timer -> {
-    //        //System.out.println("Sending the time...");
-    //        vertx.eventBus().publish("test.time", new JsonObject().put("now", System.currentTimeMillis()));
-    //        vertx.eventBus().send("test.time-send", new JsonObject().put("now", System.currentTimeMillis()));
-    //      });
+    vertx.setPeriodic(1000, timer -> {
+      //System.out.println("Sending the time...");
+      vertx.eventBus().publish("test.time", new JsonObject().put("now", System.currentTimeMillis()));
+      vertx.eventBus().send("test.time-send", new JsonObject().put("now", System.currentTimeMillis()));
+    });
   }
 
   private JsonObject createReply(Message msg) {

@@ -30,7 +30,12 @@
                 <configuration>
                     <source>9</source>
                     <target>9</target>
+                    <includes>
+                        <skipIfEmpty>true</skipIfEmpty>
+                        <include>src</include>
+                    </includes>
                 </configuration>
+                <version>3.8.0</version>
             </plugin>
 
             <plugin>
@@ -44,6 +49,14 @@
     </build>
 
     <!-- Dependencies -->
+
+    <!--<repositories>-->
+        <!--<repository>-->
+            <!--<id>in-project</id>-->
+            <!--<name>In Project Repo</name>-->
+            <!--<url>file://${project.basedir}/../libs</url>-->
+        <!--</repository>-->
+    <!--</repositories>-->
 
     <dependencies>
         <dependency>

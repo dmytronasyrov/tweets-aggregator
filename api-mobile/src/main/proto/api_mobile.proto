@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.pharosproduction.tweets_aggregator.api_mobile";
+
+package api_mobile;
+
+message HelloRequest {
+    string hello_id = 1;
+}
+
+message HelloResponse {
+    string hello_id_response = 1;
+}
+
+service HelloService {
+    rpc Hello(HelloRequest) returns (HelloResponse) {};
+}

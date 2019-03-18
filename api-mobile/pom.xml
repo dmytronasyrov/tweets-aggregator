@@ -12,12 +12,12 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>kafka-producer</artifactId>
+    <artifactId>api-mobile</artifactId>
 
     <!-- Properties -->
 
     <properties>
-        <main.verticle>com.pharosproduction.tweets_aggregator.kafka_producer.MainVerticle</main.verticle>
+        <main.verticle>com.pharosproduction.tweets_aggregator.api-mobile.MainVerticle</main.verticle>
     </properties>
 
     <!-- Build -->
@@ -31,11 +31,31 @@
                     <source>9</source>
                     <target>9</target>
                     <includes>
-                        <skipIfEmpty>true</skipIfEmpty>
                         <include>src</include>
                     </includes>
                 </configuration>
                 <version>3.8.0</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+
+                <executions>
+                    <execution>
+                        <id>default-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+                <configuration>
+                    <skipIfEmpty>true</skipIfEmpty>
+                    <outputDirectory>lib</outputDirectory>
+                </configuration>
             </plugin>
 
             <plugin>
@@ -50,31 +70,44 @@
 
     <!-- Dependencies -->
 
-    <repositories>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-
+    <!--<repositories>-->
         <!--<repository>-->
             <!--<id>in-project</id>-->
             <!--<name>In Project Repo</name>-->
             <!--<url>file://${project.basedir}/../libs</url>-->
         <!--</repository>-->
-    </repositories>
+    <!--</repositories>-->
 
     <dependencies>
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-netty-shaded</artifactId>
+            <version>1.19.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-protobuf</artifactId>
+            <version>1.19.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-stub</artifactId>
+            <version>1.19.0</version>
+        </dependency>
+
         <dependency>
             <groupId>com.pharosproduction</groupId>
             <artifactId>common</artifactId>
             <version>1.0</version>
             <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.vert-x3</groupId>
-            <artifactId>vertx-kafka-client</artifactId>
-            <version>5caee7e589</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
 </project>
