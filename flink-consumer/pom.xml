@@ -12,12 +12,12 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>api-dashboard</artifactId>
+    <artifactId>flink-consumer</artifactId>
 
     <!-- Properties -->
 
     <properties>
-        <main.verticle>com.pharosproduction.tweets_aggregator.api-dashboard.MainVerticle</main.verticle>
+        <main.verticle>com.pharosproduction.tweets_aggregator.flink-consumer.MainVerticle</main.verticle>
     </properties>
 
     <!-- Build -->
@@ -48,33 +48,12 @@
         </plugins>
     </build>
 
-    <!-- Dependencies -->
-
     <dependencies>
         <dependency>
             <groupId>com.pharosproduction</groupId>
             <artifactId>common</artifactId>
             <version>1.0</version>
             <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-web</artifactId>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.graphql-java/graphql-java -->
-        <dependency>
-            <groupId>com.graphql-java</groupId>
-            <artifactId>graphql-java</artifactId>
-            <version>11.0</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.graphql-java/graphql-java-tools -->
-        <dependency>
-            <groupId>com.graphql-java</groupId>
-            <artifactId>graphql-java-tools</artifactId>
-            <version>5.2.4</version>
         </dependency>
     </dependencies>
 </project>

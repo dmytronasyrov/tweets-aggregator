@@ -18,6 +18,7 @@
         <module>api-dashboard</module>
         <module>eventbus-bridge</module>
         <module>api-mobile</module>
+        <module>flink-consumer</module>
     </modules>
 
     <!-- Properties -->
