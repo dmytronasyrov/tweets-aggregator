@@ -41,7 +41,9 @@ public class TweetsProducerVerticle extends AbstractVerticle {
   // Overrides
 
   // kafka-topics --zookeeper 127.0.0.1:2181 --topic streaming.tweets.raw --create --partitions 6 --replication-factor 2
+  // kafka-topics --zookeeper 127.0.0.1:2181 --topic streaming.tweets --create --partitions 6 --replication-factor 1
   // kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic streaming.tweets.raw --from-beginning
+  // kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic streaming.tweets --from-beginning --property print.key=true --property key.separator=,
 
   @Override
   public void start() throws Exception {
