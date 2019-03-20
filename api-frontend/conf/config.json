@@ -1,1 +1,18 @@
-{}
+{
+  "client": {
+    "method": "http",
+    "host": "localhost",
+    "port": 3000
+  },
+  "router": {
+    "eventbus": "/eventbus/*"
+  },
+  "server": {
+    "port": 8080
+  },
+  "eventbus": {
+    "addresses": {
+      "tweets": "api.tweets"
+    }
+  }
+}
