@@ -16,6 +16,11 @@ public class Config {
   private static final String EB = "eventbus";
   private static final String EB_ADDRESSES = "addresses";
   private static final String EB_ADDRESSES_TWEETS = "tweets";
+  private static final String KAFKA = "kafka";
+  private static final String KAFKA_HOST = "host";
+  private static final String KAFKA_PORT = "port";
+  private static final String KAFKA_TOPICS = "topics";
+  private static final String KAFKA_TOPICS_TWEETS = "tweets";
 
   // Variables
 
@@ -23,6 +28,8 @@ public class Config {
   private int mServerPort;
   private final String mRouterEbAddress;
   private final String mEbAddressTweets;
+  private final String mKafkaEndpoint;
+  private final String mTopicTweets;
 
   // Constructors
 
@@ -42,6 +49,13 @@ public class Config {
     JsonObject eb = json.getJsonObject(EB);
     JsonObject addresses = eb.getJsonObject(EB_ADDRESSES);
     mEbAddressTweets = addresses.getString(EB_ADDRESSES_TWEETS);
+
+    JsonObject kafka = json.getJsonObject(KAFKA);
+    JsonObject kafkaTopics = kafka.getJsonObject(KAFKA_TOPICS);
+    String kafkaHost = kafka.getString(KAFKA_HOST);
+    int kafkaPort = kafka.getInteger(KAFKA_PORT);
+    mKafkaEndpoint = kafkaHost + ":" + kafkaPort;
+    mTopicTweets = kafkaTopics.getString(KAFKA_TOPICS_TWEETS);
   }
 
   // Accessors
@@ -60,5 +74,13 @@ public class Config {
 
   String getEbAddressTweets() {
     return mEbAddressTweets;
+  }
+
+  String getKafkaEndpoint() {
+    return mKafkaEndpoint;
+  }
+
+  String getTopicTweets() {
+    return mTopicTweets;
   }
 }

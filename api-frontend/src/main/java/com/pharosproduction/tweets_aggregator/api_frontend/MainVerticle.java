@@ -26,7 +26,6 @@ public class MainVerticle extends MicroserviceVerticle {
 
     deploySocket();
     deployKafkaConsumer();
-//    ServiceDiscoveryRestEndpoint.create(router, mDiscovery);
   }
 
   private void deploySocket() {
