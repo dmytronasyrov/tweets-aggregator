@@ -121,8 +121,6 @@ public class TweetsConsumerVerticle extends AbstractVerticle {
       JsonObject payload = new JsonObject()
         .put(TWEETS_KEY, tweets);
       vertx.eventBus().send(ADDRESS_TWEETS_RAW, payload);
-
-      System.out.println("TWEETS: " + payload.toString());
     });
   }
 }

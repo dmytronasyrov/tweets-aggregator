@@ -17,7 +17,7 @@
     <!-- Properties -->
 
     <properties>
-        <main.verticle>com.pharosproduction.tweets_aggregator.api-dashboard.MainVerticle</main.verticle>
+        <main.verticle>com.pharosproduction.tweets_aggregator.api_dashboard.MainVerticle</main.verticle>
     </properties>
 
     <!-- Build -->

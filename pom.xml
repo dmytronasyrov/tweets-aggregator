@@ -19,6 +19,7 @@
         <module>eventbus-bridge</module>
         <module>api-mobile</module>
         <module>tweets-processor</module>
+        <module>api-frontend</module>
     </modules>
 
     <!-- Properties -->

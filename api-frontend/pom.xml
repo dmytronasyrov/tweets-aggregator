@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Package Info -->
+
+    <parent>
+        <artifactId>tweets-aggregator</artifactId>
+        <groupId>com.pharosproduction</groupId>
+        <version>1.0</version>
+    </parent>
+
+    <artifactId>api-frontend</artifactId>
+
+    <!-- Properties -->
+
+    <properties>
+        <main.verticle>com.pharosproduction.tweets_aggregator.api_frontend.MainVerticle</main.verticle>
+    </properties>
+
+    <!-- Build -->
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>9</source>
+                    <target>9</target>
+                    <includes>
+                        <skipIfEmpty>true</skipIfEmpty>
+                        <include>src</include>
+                    </includes>
+                </configuration>
+                <version>3.8.0</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-shade-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- Dependencies -->
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.pharosproduction</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.vert-x3</groupId>
+            <artifactId>vertx-kafka-client</artifactId>
+            <version>5caee7e589</version>
+        </dependency>
+    </dependencies>
+</project>
