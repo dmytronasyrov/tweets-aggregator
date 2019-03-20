@@ -22,3 +22,5 @@ test-tmp
 .vertx
 target
 *.jar
+front/.next
+front/node_modules
