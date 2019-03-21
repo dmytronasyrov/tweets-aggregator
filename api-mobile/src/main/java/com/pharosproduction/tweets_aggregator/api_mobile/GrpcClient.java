@@ -3,6 +3,7 @@ package com.pharosproduction.tweets_aggregator.api_mobile;
 import io.grpc.ManagedChannel;
 import io.grpc.netty.shaded.io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.shaded.io.grpc.netty.NettyChannelBuilder;
+import io.grpc.netty.shaded.io.netty.handler.ssl.SslContext;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
@@ -18,56 +19,19 @@ import java.util.Arrays;
 public class GrpcClient {
 
   public static void main(String[] args) throws SSLException {
-    JsonObject authConfig = new JsonObject()
-      .put("public-key", "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEIhhhqGgo42Wd1++zH+ndgCrUx8Yh\n" +
-        "J3CWz6NhuZSxQxJ1raJmUChUIz68ZlUy4dlwcSjN0C1J2E10LxCh2IpJTg==")
-      .put("permissionsClaimKey", "realm/access/roles");
-
-    PubSecKeyOptions pubSecOpts = new PubSecKeyOptions()
-      .setAlgorithm("ES256")
-      .setPublicKey("MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEIhhhqGgo42Wd1++zH+ndgCrUx8Yh\n" +
-        "J3CWz6NhuZSxQxJ1raJmUChUIz68ZlUy4dlwcSjN0C1J2E10LxCh2IpJTg==")
-      .setSecretKey("MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgxgewcbmh0aO7l0PB\n" +
-        "hsrjMiYJ0L8wafncFEHudBJoOwuhRANCAAQiGGGoaCjjZZ3X77Mf6d2AKtTHxiEn\n" +
-        "cJbPo2G5lLFDEnWtomZQKFQjPrxmVTLh2XBxKM3QLUnYTXQvEKHYiklO");
-
-    JWTAuthOptions jwtAuthOpts = new JWTAuthOptions(authConfig)
-      .addPubSecKey(pubSecOpts)
-      .setPermissionsClaimKey("realm_access/roles");
-
-    long exp = System.currentTimeMillis() + 10 * 60 * 1000;
-    // iss - issuer
-    // sub - subject
-    // aud - audience
-    // exp - expiration time
-    // nbf - not before time
-    // jti - JWT ID
-    // iat - issued at in ms
-    JsonObject payload = new JsonObject()
-      .put("iss", "android mobile device")
-      .put("sub", "uid 1131231231231331")
-      .put("aud", "plain user")
-      .put("exp", exp)
-      .put("jti", "aisdiofjdsoiafjioajdsfoijaoidjfioajisojfio")
-      .put("realm", new JsonObject()
-        .put("access", new JsonObject()
-          .put("roles", new JsonArray(Arrays.asList("role1", "role2")))
-        )
-      )
-      .put("somekey", "somevalue");
-    JWTOptions jwtOpts = new JWTOptions().setAlgorithm("ES256");
-
-    JWTAuth provider = JWTAuth.create(Vertx.vertx(), jwtAuthOpts);
-    String token = provider.generateToken(payload, jwtOpts);
+    String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJpc3MiOiJhbmRyb2lkIG1vYmlsZSBkZXZpY2UiLCJzdWIiOiJ1aWQgMTEzMTIzMTIzMTIzMTMzMSIsImF1ZCI6InBsYWluIHVzZXIiLCJleHAiOjE1NTMyMDMzNTAsImp0aSI6ImFpc2Rpb2ZqZHNvaWFmamlvYWpkc2ZvaWphb2lkamZpb2FqaXNvamZpbyIsInJlYWxtIjp7ImFjY2VzcyI6eyJyb2xlcyI6WyJyb2xlMSIsInJvbGUyIl19fSwic29tZWtleSI6InNvbWV2YWx1ZSIsImlhdCI6MTU1MzIwMzI5MH0.Tc1P_-4fGgE6D8Qt0yTBrJEfDOrw7DS3rybHmfEN0AxA1dznJ7jtJaxI3Mp6RSCMx_SpG2TttotqMdRAlaOWfw";
     JwtClientInterceptor interceptor = new JwtClientInterceptor(token);
 
     ClassLoader loader = ApiVerticle.class.getClassLoader();
     String trustCertPath = loader.getResource("ssl/ca.crt").getPath();
+    File trustCert = new File(trustCertPath);
+    SslContext sslContext = GrpcSslContexts.forClient().trustManager(trustCert).build();
 
     ManagedChannel channel = NettyChannelBuilder.forAddress("localhost", 4000)
-      .sslContext(GrpcSslContexts.forClient().trustManager(new File(trustCertPath)).build())
+      .sslContext(sslContext)
       .intercept(interceptor)
       .build();
+
     HelloServiceGrpc.HelloServiceBlockingStub stub = HelloServiceGrpc.newBlockingStub(channel);
     HelloResponse response = stub.hello(HelloRequest.newBuilder().setHelloId("asidjfiajsdifa").build());
     System.out.println(response.getHello().getName() + ", " + response.getHello().getMsg());

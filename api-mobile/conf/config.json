@@ -1,1 +1,14 @@
-{}
+{
+  "endpoint": {
+    "host": "localhost",
+    "port": 4000
+  },
+  "tls": {
+    "cert_chain": "ssl/server.crt",
+    "priv_key": "ssl/server.pem"
+  },
+  "keys": {
+    "pub_key": "keys/public.pem",
+    "priv_key": "keys/private_key.pem"
+  }
+}
