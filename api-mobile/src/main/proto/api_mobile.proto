@@ -5,12 +5,17 @@ option java_package = "com.pharosproduction.tweets_aggregator.api_mobile";
 
 package api_mobile;
 
+message Hello {
+    string name = 1;
+    string msg = 2;
+}
+
 message HelloRequest {
     string hello_id = 1;
 }
 
 message HelloResponse {
-    string hello_id_response = 1;
+    Hello hello = 1;
 }
 
 service HelloService {
