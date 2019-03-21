@@ -30,6 +30,7 @@ public class ApiVerticle extends AbstractVerticle {
 
   private static final String JWT_ALGO = "ES256";
   private static final String CLAIM_KEY = "realm/access/roles";
+  private static final String ROLE = "role1";
 
   // Variables
 
@@ -42,7 +43,7 @@ public class ApiVerticle extends AbstractVerticle {
     mConfig = new Config(config());
 
     JWTAuth provider = createJwtAuth();
-    JwtServerInterceptor interceptor = new JwtServerInterceptor(provider);
+    JwtServerInterceptor interceptor = new JwtServerInterceptor(provider, ROLE);
     ServerInterceptor blockingInterceptor = BlockingServerInterceptor.wrap(vertx, interceptor);
 
     VertxServerBuilder.forAddress(vertx, mConfig.getEndpointHost(), mConfig.getEndpointPort())
@@ -137,7 +138,7 @@ public class ApiVerticle extends AbstractVerticle {
   private String readFile(String filePath) {
     String path = getResource(filePath);
     StringBuilder contentBuilder = new StringBuilder();
-    List<String> lines = null;
+    List<String> lines;
 
     try {
       lines = Files.readAllLines(Paths.get(path));
